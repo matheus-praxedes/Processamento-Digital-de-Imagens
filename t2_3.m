@@ -30,8 +30,8 @@ img2 = imread('/home/xeds/UFPB/Processamento Digital de Imagens - 2016.2/Trabalh
 new_img1 = median(img1,15);
 new_img2 = median(img2,15);
 
-subplot(1, 2, 1), imshow(img2), title('Imagem original');
-subplot(1, 2, 2), imshow(new_img2), title('Imagem modificada');
+subplot(1, 2, 1), imshow(img1), title('Imagem original');
+subplot(1, 2, 2), imshow(new_img1), title('Imagem modificada');
 
 %imwrite(out_img, output_name);
 
