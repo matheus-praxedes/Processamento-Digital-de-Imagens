@@ -43,9 +43,9 @@ function out_img = noise_mono(img, typ)
 
 endfunction
 
-function out_img_list = generate(img, n)
+function out_img_list = generate(img, number_images)
 
-	for i = 1:n
+	for i = 1:number_images
 
 		out_img_list{i} = noise(img);
 
@@ -74,27 +74,42 @@ endfunction
 
 function out_img = median_images(img_list)
 
-	aux = sort(img_list);
+	aux_img = img_list{1};
+	array = 1:size(img_list, 2);
 
-	out_img = aux{7};
+	for i = 1:size(aux_img, 1)
+		for j = 1:size(aux_img, 2)
+			for k = 1 : size(img_list, 2)
+				array(k) = img_list{k}(i, j);
+			endfor
+
+			array = sort(array);
+			out_img(i, j) = uint8(array(ceil(size(img_list, 2)/2)));
+		endfor
+	endfor
 
 endfunction
 
-img1 = imread('/home/xeds/UFPB/Processamento Digital de Imagens - 2016.2/Trabalho 2/Octave/Imagens/mono1024.jpg'); %monocromatica
-img2 = imread('/home/xeds/UFPB/Processamento Digital de Imagens - 2016.2/Trabalho 2/Octave/Imagens/nfs1024.jpg'); %colorida
+img1 = imread('/home/xeds/UFPB/Processamento Digital de Imagens - 2016.2/Trabalho 2/Octave/Processamento-Digital-de-Imagens/Imagens/mono1024.jpg'); %monocromatica
+img2 = imread('/home/xeds/UFPB/Processamento Digital de Imagens - 2016.2/Trabalho 2/Octave/Processamento-Digital-de-Imagens/Imagens/nfs1024.jpg'); %colorida
 
 new_img1 = generate(img1,15);
 new_img2 = generate(img2,15);
-new_img3 = mean_images(new_img2);
-new_img4 = mean_images(new_img1);
+new_img3 = mean_images(new_img1);
+new_img4 = mean_images(new_img2);
+new_img5 = median_images(new_img1);
+new_img6 = median_images(new_img2);
 
-imshow(new_img4);
+imshow(new_img5);
+%imwrite(out_img, output_name);
 
-%subplot(2, 2, 1), imshow(new_img2{1}), title('Imagem 1');
-%subplot(2, 2, 2), imshow(new_img2{2}), title('Imagem 2');
-%subplot(2, 2, 3), imshow(new_img2{3}), title('Imagem 3');
-%subplot(2, 2, 4), imshow(new_img2{4}), title('Imagem 4');
+waitforbuttonpress();
 
+
+%If and else
+%
+%
+%
 %if(new_img2{1} == new_img2{2}) 
 %
 %	x = 5
@@ -104,6 +119,3 @@ imshow(new_img4);
 %
 %endif
 
-%imwrite(out_img, output_name);
-
-waitforbuttonpress();
